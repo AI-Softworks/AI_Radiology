@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  --dot-bg: rgb(243, 243, 243);
+  --dot-color: black;
+  --dot-size: 1px;
+  --dot-space: 22px;
+  background: linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+              linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+              var(--dot-color);
+  font-family: "Space Grotesk", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  --dot-bg: rgb(0, 0, 0);
+  --dot-color: rgb(255, 255, 255);
+  background: linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+              linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+              var(--dot-color);
+}
+.inputSection{
+    color: black;
+    height: 100vh;
+    padding: 20px 50px;
+}
