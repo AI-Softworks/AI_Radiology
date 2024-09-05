@@ -1,15 +1,16 @@
-// src/Components/InputSection.js
 import React from "react";
 import "./InputSection.css";
+import Tooltip from "./Tooltip";
+import { useTheme } from "../context/ThemeContext";
 
 const InputSection = React.forwardRef((props, ref) => {
+  const { isDarkMode } = useTheme(); // Access the theme context
+  console.log("isDarkMode:", isDarkMode); // Log the value to check
+
   return (
-    <section className="inputSection" ref={ref}>
-      <h2>Welcome to the Next Section</h2>
-      <p>
-        This section appears after clicking the "Get Started" button, and the
-        page automatically scrolls to it.
-      </p>
+    <section className={`inputSection ${isDarkMode ? "dark" : ""}`} ref={ref}>
+      <h1 className="uploadText">Upload the image here</h1>
+      <Tooltip />
     </section>
   );
 });

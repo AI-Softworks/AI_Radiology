@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useTheme } from "../context/ThemeContext"; // Import useTheme hook
 import "./LandingPage.css";
 
 export default function LandingPage({ onGetStarted }) {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme(); // Use the theme context
 
   // Effect to apply the theme to the body element
-  useEffect(() => {
-    if (darkTheme) {
+  React.useEffect(() => {
+    if (isDarkMode) {
       document.body.classList.add("dark");
     } else {
       document.body.classList.remove("dark");
     }
-  }, [darkTheme]);
-
-  // Toggle the theme
-  const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
-  };
+  }, [isDarkMode]);
 
   return (
     <div className="LandingPage">
@@ -27,7 +23,11 @@ export default function LandingPage({ onGetStarted }) {
         <div className="navBarRight">
           <a href="#">About Us</a>
           <label className="ui-switch">
-            <input type="checkbox" onChange={toggleTheme} checked={darkTheme} />
+            <input
+              type="checkbox"
+              onChange={toggleTheme}
+              checked={isDarkMode}
+            />
             <div className="slider">
               <div className="circle"></div>
             </div>
@@ -36,7 +36,7 @@ export default function LandingPage({ onGetStarted }) {
       </div>
       <div className="content">
         <div className="contentLeft">
-          <h1 className="type">AI For Radiology</h1>
+          <h1 className="type heading">AI For Radiology</h1>
           <p className="tagLine">
             Empowering Radiologists with AI: Precision Diagnosis at Lightning
             Speed.
