@@ -1,16 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React,{ useRef } from "react";
+import "./App.css";
+import LandingPage from "./Components/LandingPage";
+import NextSection from "./Components/InputSection";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showNextSection, setShowNextSection] = React.useState(false);
+  const nextSectionRef = useRef(null);
+
+  const handleGetStarted = () => {
+    setShowNextSection(true);
+    setTimeout(() => {
+      nextSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   return (
-    <>
-      <h1>AI For Radiology</h1>
-    </>
-  )
+    <ThemeProvider>
+      <LandingPage onGetStarted={handleGetStarted} />
+      {showNextSection && <NextSection ref={nextSectionRef} />}
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
