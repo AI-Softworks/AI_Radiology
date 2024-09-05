@@ -1,25 +1,77 @@
 body {
+}
+
+body.dark {
+}
+.inputSection {
   margin: 0;
   --dot-bg: rgb(243, 243, 243);
   --dot-color: black;
   --dot-size: 1px;
   --dot-space: 22px;
-  background: linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-              linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-              var(--dot-color);
+  background: linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
   font-family: "Space Grotesk", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  color: black;
+  height: 100vh;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-body.dark {
+.inputSection.dark {
   --dot-bg: rgb(0, 0, 0);
   --dot-color: rgb(255, 255, 255);
-  background: linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-              linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-              var(--dot-color);
+  background: linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
 }
-.inputSection{
-    color: black;
-    height: 100vh;
-    padding: 20px 50px;
+.uploadText {
+  font-size: xx-large;
+  font-weight: 700;
+  margin-bottom: 200px;
+}
+/* Light Mode Styles */
+.inputSection {
+  /* background-color: #fff; */
+  color: #000;
+  /* other styles */
+}
+
+.uploadText.dark {
+  color: #f4f4f4;
+  /* other styles */
+}
+.uploadText {
+  color: #000;
+}
+/* Dark Mode Styles */
+.inputSection.dark {
+  background-color: #ffffff;
+  color: #e0e0e0;
+}
+
+.inputSection.dark .uploadText {
+  color: #e0e0e0;
 }
