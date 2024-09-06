@@ -4,6 +4,7 @@ body {
 body.dark {
 }
 .inputSection {
+  width: 100%;
   margin: 0;
   --dot-bg: rgb(243, 243, 243);
   --dot-color: black;

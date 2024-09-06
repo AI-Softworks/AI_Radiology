@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import the CORS package
 from werkzeug.utils import secure_filename
 import os
+from predict import predict
 
 app = Flask(__name__)
 
@@ -34,8 +35,14 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({'success': 'File successfully uploaded', 'filename': filename}), 200
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+        
+        # Call the predict function
+        outputd, val = predict(file_path)
+        
+        # Return predictions as a JSON response
+        return jsonify({'predictions': outputd, 'maxVal': val}), 200
     
     return jsonify({'error': 'File type not allowed'}), 400
 
