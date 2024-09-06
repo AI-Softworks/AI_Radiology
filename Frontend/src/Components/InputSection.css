@@ -1,8 +1,4 @@
-body {
-}
 
-body.dark {
-}
 .inputSection {
   width: 100%;
   margin: 0;
@@ -25,8 +21,8 @@ body.dark {
   font-family: "Space Grotesk", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   color: black;
-  height: 100vh;
-  padding: 20px 50px;
+  /* height: 120vh; */
+  padding: 100px 50px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

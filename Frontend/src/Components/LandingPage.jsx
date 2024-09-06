@@ -18,7 +18,8 @@ export default function LandingPage({ onGetStarted }) {
     <div className="LandingPage">
       <div className="navBar">
         <div className="navBarLeft">
-          <img src="logo.png" alt="logo" />
+          <img src="./src/assets/logo.png" width="100px" alt="logo" />
+          <h1 className={`navText ${isDarkMode ? "dark" : ""}`}>CROSS LIGHT</h1>
         </div>
         <div className="navBarRight">
           <a href="#">About Us</a>

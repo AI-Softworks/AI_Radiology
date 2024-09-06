@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./Tooltip.css"; // Import the CSS file if you have one for styling
+import axios from "axios";
 
 const Tooltip = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null); // For storing prediction result
+  const [chatbotResponse, setChatbotResponse] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleIconClick = (e) => {
@@ -42,6 +44,64 @@ const Tooltip = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+
+  const handleLearnMoreClick = async () => {
+    if (!analysisResult) return;
+
+    try {
+      // Send a prompt to the chatbot using the analysis result as the question, asking for a specific format
+      const response = await axios.post("http://localhost:5001/", {
+        prompt: `Tell me more about the disease based on this analysis: ${JSON.stringify(
+          analysisResult.predictions
+        )}. Please format the response in markdown with headings and bullet points.`,
+      });
+
+      setChatbotResponse(response.data); // Store the chatbot's response
+    } catch (error) {
+      console.error("Error fetching chatbot response:", error);
+      setChatbotResponse("Sorry, I couldn't get more information.");
+    }
+  };
+
+  const formatLLMResponse = (response) => {
+    if (!response) return <p></p>; // Handle null or undefined response
+
+    const sections = response.split("\n\n"); // Split sections by double newlines for paragraphs
+
+    return sections.map((section, index) => {
+      // Detect if the section is a heading or not
+      if (section.startsWith("##")) {
+        const heading = section.replace("##", "").trim();
+        return <h2 key={index}>{heading}</h2>;
+      }
+
+      // Split by line to handle lists and paragraphs
+      return (
+        <div key={index}>
+          {section.split("\n").map((line, i) => {
+            // Handle list items (lines starting with "-")
+            if (line.trim().startsWith("-")) {
+              return (
+                <ul key={i}>
+                  <li>{line.trim().substring(1).trim()}</li>
+                </ul>
+              );
+            }
+
+            // Handle bold markers
+            const boldHandled = line
+              .split("**")
+              .map((chunk, j) =>
+                j % 2 === 1 ? <b key={j}>{chunk}</b> : chunk
+              );
+
+            // Return formatted paragraph
+            return <p key={i}>{boldHandled}</p>;
+          })}
+        </div>
+      );
+    });
   };
 
   return (
@@ -148,7 +208,27 @@ const Tooltip = () => {
       {analysisResult && (
         <div className="analysis-result">
           <h3>Analysis Result:</h3>
-          <p>{JSON.stringify(analysisResult)}</p>
+          <h3>Disease: {JSON.stringify(analysisResult.predictions)}</h3>
+          <button className="contactButton" onClick={handleLearnMoreClick}>
+            Learn More
+            <div className="iconButton">
+              <svg
+                height="24"
+                width="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+          </button>
+          <div className="learnMoreText">
+            {formatLLMResponse(chatbotResponse)}
+          </div>
         </div>
       )}
     </div>

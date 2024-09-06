@@ -34,12 +34,21 @@ body.dark {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 100px;
+  padding: 10px 60px;
 }
-
+.navBarLeft{
+  display: flex;
+  justify-content: center;
+}
 .navBarRight {
   display: flex;
   gap: 100px;
+}
+.navText{
+  color: black;
+}
+.navText.dark{
+  color: white;
 }
 .content {
   margin-top: 50px;

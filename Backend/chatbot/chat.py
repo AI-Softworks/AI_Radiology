@@ -9,7 +9,7 @@ CORS(app)  # Enable CORS for all routes
 
 # Set up your API key using an environment variable
 genai.configure(api_key="AIzaSyCFSjvztmOni1ycRPhAcza2PUPncGCLtiE")
-model = genai.GenerativeModel('gemini-1.5-flash',system_instruction="suppose you are a doctor.")
+model = genai.GenerativeModel('gemini-pro')
 
 @app.errorhandler(404)
 def page_not_found(e):
